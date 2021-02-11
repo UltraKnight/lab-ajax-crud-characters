@@ -43,7 +43,7 @@ window.addEventListener('load', () => {
     let res = await charactersAPI.deleteOneRegister(id);
     if(res === 'Character has been successfully deleted') {
       event.target.style.backgroundColor = 'green';
-      document.getElementById('fetch-all').click(); //simulate a click on the fetch-all button
+      document.getElementById('fetch-all').click(); //simulates a click on the fetch-all button
     } else {
       event.target.style.backgroundColor = 'red';
     }
@@ -57,12 +57,13 @@ window.addEventListener('load', () => {
     let weapon = event.target.elements.weapon.value;
     let cartoon = event.target.elements.cartoon.checked;
     let char = {name, occupation, weapon, cartoon};
+    let updatedChar = await charactersAPI.updateOneRegister(id, char);
+    updatedChar = updatedChar.data ? updatedChar.data : {}; //if the char was updated then updatedChar.data will be the new char
 
-    try {
-      await charactersAPI.updateOneRegister(id, char);
+    if(updatedChar.id) {
       event.target.elements['send-data'].style.backgroundColor = 'green';
-      document.getElementById('fetch-all').click(); //simulate a click on the fetch-all button
-    } catch (error) {
+      document.getElementById('fetch-all').click(); //simulates a click on the fetch-all button
+    } else {
       event.target.elements['send-data'].style.backgroundColor = 'red';
     }
   });
@@ -76,6 +77,6 @@ window.addEventListener('load', () => {
     let char = {name, occupation, weapon, cartoon};
 
     await charactersAPI.createOneRegister(char);
-    document.getElementById('fetch-all').click(); //simulate a click on the fetch-all button
+    document.getElementById('fetch-all').click(); //simulates a click on the fetch-all button
   });
 });
