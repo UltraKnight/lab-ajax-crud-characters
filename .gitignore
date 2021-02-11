@@ -1,0 +1,9 @@
+# Dependency directory
+public/api/node_modules
+
+# Debug log from npm
+public/api/npm-debug.log
+
+# for maintenance purposes - not best practices
+public/api/package-lock.json
+
