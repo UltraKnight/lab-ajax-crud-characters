@@ -26,8 +26,7 @@ class APIHandler {
     }
 
     try {
-      let createdChar = axios.post(this.BASE_URL + '/characters', newChar);
-      return createdChar;
+      return axios.post(this.BASE_URL + '/characters', newChar);
     } catch (error) {
         return error;
     }
@@ -56,8 +55,7 @@ class APIHandler {
     // if(! newChar.weapon) {newChar.weapon = char.weapon;}
 
     try {
-      let editedChar = axios.put(`${this.BASE_URL}/characters/${id}`, newChar);
-      return editedChar;
+     return axios.put(`${this.BASE_URL}/characters/${id}`, newChar);
     } catch (error) {
         return {};
     }

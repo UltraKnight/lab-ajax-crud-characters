@@ -15,18 +15,11 @@
       "cartoon": false
     },
     {
-      "name": "outro",
-      "occupation": "lkçj",
-      "weapon": "kjjkkj",
-      "cartoon": false,
-      "id": 3
-    },
-    {
-      "name": "outro",
-      "occupation": "lkçj",
-      "weapon": "kjjkkj",
-      "cartoon": false,
-      "id": 4
+      "id": 3,
+      "name": "Sponge Bob",
+      "occupation": "Lives under the sea",
+      "weapon": "Crabby Patty",
+      "cartoon": true
     }
   ]
 }
