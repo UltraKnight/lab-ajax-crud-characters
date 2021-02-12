@@ -3,15 +3,15 @@ class APIHandler {
     this.BASE_URL = baseUrl;
   }
 
-   async getFullList () {
-    return await axios.get(this.BASE_URL + '/characters');
+  getFullList () {
+    return axios.get(this.BASE_URL + '/characters');
   }
 
- async getOneRegister (id) {
-    return await axios.get(`${this.BASE_URL}/characters/${id}`);
+ getOneRegister (id) {
+    return axios.get(`${this.BASE_URL}/characters/${id}`);
   }
 
-  async createOneRegister (character) {
+  createOneRegister (character) {
     let newChar = character;
     if(!newChar.name) {
       return newChar.name;
@@ -26,7 +26,7 @@ class APIHandler {
     }
 
     try {
-      let createdChar = await axios.post(this.BASE_URL + '/characters', newChar);
+      let createdChar = axios.post(this.BASE_URL + '/characters', newChar);
       return createdChar;
     } catch (error) {
         return error;
@@ -35,31 +35,46 @@ class APIHandler {
 
   async updateOneRegister (id, character) {
     let newChar = character;
-    if(! this.getOneRegister(id)) {
+    let char = {};
+
+    try {
+      char = await this.getOneRegister(id);
+      //If no id was typed int he input, it returns all the existing characters
+      if(char.data.length > 1) {
+        return 'Character not found';
+      }
+    } catch(e) {
       return 'Character not found';
     }
 
-    let char = await this.getOneRegister(id);
     char = char.data;
-    if(! newChar.name) {newChar.name = char.name;}
-    if(! newChar.occupation) {newChar.occupation = char.occupation;}
-    if(! newChar.weapon) {newChar.weapon = char.weapon;}
+    newChar.name = newChar.name || char.name;
+    newChar.occupation = newChar.occupation || char.occupation;
+    newChar.weapon = newChar.weapon || char.weapon;
+    //if(! newChar.name) {newChar.name = char.name;}
+    // if(! newChar.occupation) {newChar.occupation = char.occupation;}
+    // if(! newChar.weapon) {newChar.weapon = char.weapon;}
 
     try {
-      let editedChar = await axios.put(`${this.BASE_URL}/characters/${id}`, newChar);
+      let editedChar = axios.put(`${this.BASE_URL}/characters/${id}`, newChar);
       return editedChar;
     } catch (error) {
-        return error;
+        return {};
     }
   }
 
    async deleteOneRegister (id) {
-    if(! this.getOneRegister(id)) {
+    try {
+      let char = await this.getOneRegister(id);
+      if(char.data.length > 1) {
+        return 'Character not found';
+      }
+    } catch(e) {
       return 'Character not found';
     }
 
     try {
-      await axios.delete(`${this.BASE_URL}/characters/${id}`);
+      axios.delete(`${this.BASE_URL}/characters/${id}`);
       return 'Character has been successfully deleted';
     } catch (error) {
       return error;

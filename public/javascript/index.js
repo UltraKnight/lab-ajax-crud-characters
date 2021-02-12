@@ -41,6 +41,7 @@ window.addEventListener('load', () => {
   document.getElementById('delete-one').addEventListener('click', async function (event) {
     let id = document.querySelector('[name=character-id-delete]').value;
     let res = await charactersAPI.deleteOneRegister(id);
+  
     if(res === 'Character has been successfully deleted') {
       event.target.style.backgroundColor = 'green';
       document.getElementById('fetch-all').click(); //simulates a click on the fetch-all button
@@ -58,7 +59,7 @@ window.addEventListener('load', () => {
     let cartoon = event.target.elements.cartoon.checked;
     let char = {name, occupation, weapon, cartoon};
     let updatedChar = await charactersAPI.updateOneRegister(id, char);
-    updatedChar = updatedChar.data ? updatedChar.data : {}; //if the char was updated then updatedChar.data will be the new char
+    updatedChar = updatedChar.data || {}; //if the char was updated then updatedChar.data will be the new char
 
     if(updatedChar.id) {
       event.target.elements['send-data'].style.backgroundColor = 'green';
