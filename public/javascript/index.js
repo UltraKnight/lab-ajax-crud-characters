@@ -63,6 +63,7 @@ window.addEventListener('load', () => {
 
     if(updatedChar.id) {
       event.target.elements['send-data'].style.backgroundColor = 'green';
+      event.target.reset();
       document.getElementById('fetch-all').click(); //simulates a click on the fetch-all button
     } else {
       event.target.elements['send-data'].style.backgroundColor = 'red';
@@ -78,6 +79,7 @@ window.addEventListener('load', () => {
     let char = {name, occupation, weapon, cartoon};
 
     await charactersAPI.createOneRegister(char);
+    event.target.reset();
     document.getElementById('fetch-all').click(); //simulates a click on the fetch-all button
   });
 });
